@@ -8,3 +8,6 @@ urlpatterns = [
     path("profiles/", include("profiles.urls", namespace="profiles")),
     path("admin/", admin.site.urls),
 ]
+
+handler404 = "oc_lettings_site.views.handler404"
+handler500 = "oc_lettings_site.views.handler500"

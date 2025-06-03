@@ -8,6 +8,18 @@ from .models import Letting
 # Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
 # posuere cubilia curae; Cras eget scelerisque
 def index(request):
+    """
+    Render the index page displaying a list of all lettings.
+
+    Retrieves all Letting objects from the database and passes them to the
+    template context to be rendered in a list format.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered HTML page showing all available lettings.
+    """
     lettings_list = Letting.objects.all()
     context = {"lettings_list": lettings_list}
     return render(request, "lettings/index.html", context)
@@ -27,6 +39,22 @@ def index(request):
 # Sed non dolor risus. Mauris condimentum auctor elementum. Donec quis nisi ligula.
 # Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet.
 def letting(request, letting_id):
+    """
+    Render the detail page for a specific letting.
+
+    Retrieves a Letting instance by its ID and passes its title and associated
+    address to the template context for rendering.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        letting_id (int): The primary key of the Letting to retrieve.
+
+    Returns:
+        HttpResponse: The rendered HTML page for the specified letting.
+
+    Raises:
+        Letting.DoesNotExist: If no Letting with the given ID is found.
+    """
     letting = Letting.objects.get(id=letting_id)
     context = {
         "title": letting.title,
