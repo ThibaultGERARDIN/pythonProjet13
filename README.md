@@ -32,6 +32,11 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
 - Pour désactiver l'environnement, `deactivate`
 
+### Variables d'environnement
+
+- Créez un fichier `.env` à la racine du projet.
+- Ajouter la variable d'environnement `SECRET_KEY` au fichier .env
+
 #### Exécuter le site
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -46,6 +51,12 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
 - `flake8`
+
+### Sentry
+
+- Connectez vous à sentry et récupérez votre clé DSN.
+- Ajouter `SENTRY_DSN` dans votre fichier `.env`.
+- La configuration est dans le fichier `settings.py`.
 
 #### Tests unitaires
 

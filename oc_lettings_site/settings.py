@@ -1,6 +1,13 @@
 import os
-
+import sentry_sdk
+import logging
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+from dotenv import load_dotenv
 from pathlib import Path
+
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,7 +17,58 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s"
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+# SENTRY setup
+SENTRY_DSN = os.getenv("SENTRY_DSN")
+
+sentry_logging = LoggingIntegration(level=logging.INFO, event_level=logging.WARNING)
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=[DjangoIntegration(), sentry_logging],
+    send_default_pii=True,
+)
+
+# Logging settings
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}] {asctime} {name} - {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "sentry": {
+            "level": "ERROR",
+            "class": "sentry_sdk.integrations.logging.EventHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "sentry"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "lettings": {
+            "handlers": ["console", "sentry"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "profiles": {
+            "handlers": ["console", "sentry"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

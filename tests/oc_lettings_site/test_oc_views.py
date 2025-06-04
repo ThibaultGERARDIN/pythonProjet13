@@ -2,7 +2,6 @@ import pytest
 from django.test import override_settings
 from django.urls import path, reverse, include
 from pytest_django.asserts import assertTemplateUsed
-from django.http import HttpResponseServerError
 from oc_lettings_site import views as site_views
 
 

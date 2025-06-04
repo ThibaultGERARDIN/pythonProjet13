@@ -1,4 +1,7 @@
 from django.shortcuts import render
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie quam lobortis
@@ -39,6 +42,7 @@ def handler404(request, exception, template_name="oc_lettings_site/404.html"):
     Returns:
         HttpResponse: A rendered 404 error page with a 404 status code.
     """
+    logger.warning("404 Error at %s - %s", request.path, exception)
     return render(request, template_name, status=404)
 
 
@@ -55,4 +59,5 @@ def handler500(request, template_name="oc_lettings_site/500.html"):
     Returns:
         HttpResponse: A rendered 500 error page with a 500 status code.
     """
+    logger.error("500 error occurred", exc_info=True)
     return render(request, template_name, status=500)
