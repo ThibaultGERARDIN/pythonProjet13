@@ -2,6 +2,10 @@
 
 Site web d'Orange County Lettings
 
+## Documentation
+
+[![Documentation Status](https://readthedocs.org/projects/pythonprojet13/badge/?version=latest)](https://pythonprojet13.readthedocs.io/en/latest/?badge=latest)
+
 ## Développement local
 
 ### Prérequis
@@ -35,7 +39,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 ### Variables d'environnement
 
 - Créez un fichier `.env` à la racine du projet.
-- Ajouter la variable d'environnement `SECRET_KEY` au fichier .env
+- Ajouter les variables présentes dans le .env.example  au fichier .env
 
 #### Exécuter le site
 
@@ -84,5 +88,5 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
+- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
